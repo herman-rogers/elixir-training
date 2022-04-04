@@ -3,7 +3,7 @@ defmodule Blackjack.Hand do
 
   defstruct [:cards, :score]
 
-  @type t :: %Hand{cards: [Blackjack.Deck.card], score: nil | 4..21}
+  @type t :: %Hand{cards: [Blackjack.Deck.card()], score: nil | 4..21}
 
   @spec new() :: t
   def new() do

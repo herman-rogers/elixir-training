@@ -14,10 +14,11 @@ defmodule Blackjack.Server do
   alias Blackjack.AutoPlayer
 
   def init({round_id, player_ids}) do
-    {:ok, %{
-      round_id: round_id,
-      players: player_ids |> Enum.map(&{&1, AutoPlayer.new()}) |> Enum.into(%{})
-    }}
+    {:ok,
+     %{
+       round_id: round_id,
+       players: player_ids |> Enum.map(&{&1, AutoPlayer.new()}) |> Enum.into(%{})
+     }}
   end
 
   def start_link(round_id, player_ids) do
@@ -28,7 +29,6 @@ defmodule Blackjack.Server do
   def player_spec(round_id, player_id) do
     %{id: player_id, callback_mod: __MODULE__, callback_args: round_id}
   end
-
 end
 
 defmodule Blackjack.AutoPlayer do
