@@ -1,10 +1,14 @@
 defmodule Blackjack do
   def start do
-    IO.inspect("START GAME")
-    rounds = :"round_#{:erlang.unique_integer()}"
+    round_id = :"round_#{:rand.uniform(100000)}"
     player_ids = Enum.map(1..5, &:"player_#{&1}")
 
-    Blackjack.Server.start_link(rounds, player_ids)
+    Blackjack.Server.start_link(round_id, player_ids)
+
+    Blackjack.RoundServer.start_link(
+      round_id,
+      Enum.map(player_ids, &Blackjack.Server.player_spec(round_id, &1))
+    )
   end
 end
 
